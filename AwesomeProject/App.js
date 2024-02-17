@@ -1,25 +1,57 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View,Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, Button, Alert, StyleSheet } from 'react-native';
 
-export default function App() {
+const SignInPage = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignIn = () => {
+    // For simplicity, hardcoding the correct credentials
+    const correctUsername = 'user';
+    const correctPassword = 'password';
+
+    if (username === correctUsername && password === correctPassword) {
+      Alert.alert('Correct credentials');
+    } else {
+      Alert.alert('Wrong credentials. Please re-enter.');
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style = {styles.textbox}>Muhammad Atif</Text>
-      <Image style = {{width : "200",height : "200"}} src='https://images.unsplash.com/photo-1703231528215-739febd25d52?q=80&w=1977&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'/>
-      <Button onPress={()=> alert("Button pressed")}>Click me</Button>
-      <StatusBar style="auto" />
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        onChangeText={(text) => setUsername(text)}
+        value={username}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+        secureTextEntry
+      />
+      <Button title="Sign In" onPress={handleSignIn} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
   },
-  textbox : {
-    color: "red"
-  }
+  input: {
+    width: '100%',
+    marginBottom: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+  },
 });
+
+export default SignInPage;
